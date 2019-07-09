@@ -5,6 +5,9 @@ add_library(rpmalloc STATIC
 	rpmalloc/rpmalloc/rpmalloc.h
 )
 
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fPIC")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
+
 target_include_directories(rpmalloc PUBLIC
 	${CMAKE_CURRENT_SOURCE_DIR}/rpmalloc/rpmalloc
 )
