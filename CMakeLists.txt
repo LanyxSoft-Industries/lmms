@@ -503,6 +503,9 @@ FILE(REMOVE include/lmmsconfig.h)
 FILE(GLOB LMMS_INCLUDES "${CMAKE_SOURCE_DIR}/include/*.h")
 LIST(SORT LMMS_INCLUDES)
 
+FILE(GLOB LMMS_PLUGIN_INCLUDES "${CMAKE_SOURCE_DIR}/plugins/*/*.h")
+LIST(SORT LMMS_PLUGIN_INCLUDES)
+
 # Get list of all committers from git history, ordered by number of commits.
 # The CONTRIBUTORS file is used by AboutDialog. This information can be provided
 # with -DCONTRIBUTORS=/path/to/CONTRIBUTORS instead. For instance, to generate
@@ -581,6 +584,8 @@ IF(LMMS_BUILD_LINUX)
 		"${CMAKE_BINARY_DIR}/lmmsversion.h"
 		"${CMAKE_SOURCE_DIR}/src/gui/embed.cpp"
 		DESTINATION "${CMAKE_INSTALL_PREFIX}/include/lmms/")
+	INSTALL(FILES ${LMMS_PLUGIN_INCLUDES}
+		DESTINATION "${CMAKE_INSTALL_PREFIX}/include/lmms/plugins/")
 ENDIF(LMMS_BUILD_LINUX)
 
 # package ZynAddSubFX into win32 build
