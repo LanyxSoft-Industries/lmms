@@ -586,6 +586,8 @@ IF(LMMS_BUILD_LINUX)
 		DESTINATION "${CMAKE_INSTALL_PREFIX}/include/lmms/")
 	INSTALL(FILES ${LMMS_PLUGIN_INCLUDES}
 		DESTINATION "${CMAKE_INSTALL_PREFIX}/include/lmms/plugins/")
+	INSTALL(FILES "${CMAKE_BINARY_DIR}/plugins/libsf2player.so"
+		DESTINATION "${LIB_DIR}/lmms/plugins/")
 ENDIF(LMMS_BUILD_LINUX)
 
 # package ZynAddSubFX into win32 build
