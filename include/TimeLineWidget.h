@@ -166,6 +166,13 @@ public:
 					m_ppt / MidiTime::ticksPerTact() );
 	}
 
+	inline void setLooping(int start, int end, bool loop)
+	{
+		m_loopPos[0] = start;
+		m_loopPos[1] = end;
+		m_loopPoints = loop ? LoopPointsEnabled : LoopPointsDisabled;
+	}
+
 signals:
 
 	void regionSelectedFromPixels( int, int );
