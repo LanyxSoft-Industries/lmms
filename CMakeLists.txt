@@ -69,6 +69,8 @@ OPTION(WANT_VST_NOWINE	"Include partial VST support (without wine)" OFF)
 OPTION(WANT_WINMM	"Include WinMM MIDI support" OFF)
 OPTION(WANT_QT5		"Build with Qt5" OFF)
 
+OPTION(WANT_GENBIN2RES	"Regenerate bin2res app" ON)
+
 
 IF(LMMS_BUILD_APPLE)
 	# Fix linking on 10.14+. See issue #4762 on github
@@ -522,16 +524,20 @@ IF(GIT_FOUND AND NOT CONTRIBUTORS)
 		TIMEOUT 1)
 ENDIF()
 
-# embedded resources stuff
-IF(WIN32 OR WIN64)
-	# compile buildtools native
-	SET(BIN2RES_CPP "${CMAKE_SOURCE_DIR}/buildtools/bin2res.cpp")
+if (WANT_GENBIN2RES)
+	# embedded resources stuff
+	IF(WIN32 OR WIN64)
+		# compile buildtools native
+		SET(BIN2RES_CPP "${CMAKE_SOURCE_DIR}/buildtools/bin2res.cpp")
+		SET(BIN2RES "${CMAKE_BINARY_DIR}/bin2res")
+		ADD_CUSTOM_TARGET(bin2res COMMAND g++ "\"${BIN2RES_CPP}\"" -o "\"${BIN2RES}\"" DEPENDS "${BIN2RES_CPP}")
+	ELSE(WIN32 OR WIN64)
+		ADD_EXECUTABLE(bin2res buildtools/bin2res.cpp)
+		GET_TARGET_PROPERTY(BIN2RES bin2res LOCATION)
+	ENDIF(WIN32 OR WIN64)
+ELSE(WANT_GENBIN2RES)
 	SET(BIN2RES "${CMAKE_BINARY_DIR}/bin2res")
-	ADD_CUSTOM_TARGET(bin2res COMMAND g++ "\"${BIN2RES_CPP}\"" -o "\"${BIN2RES}\"" DEPENDS "${BIN2RES_CPP}")
-ELSE(WIN32 OR WIN64)
-	ADD_EXECUTABLE(bin2res buildtools/bin2res.cpp)
-	GET_TARGET_PROPERTY(BIN2RES bin2res LOCATION)
-ENDIF(WIN32 OR WIN64)
+ENDIF(WANT_GENBIN2RES)
 
 # we somehow have to make LMMS-binary depend on MOC-files
 ADD_FILE_DEPENDENCIES("${CMAKE_BINARY_DIR}/lmmsconfig.h")
