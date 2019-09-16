@@ -536,8 +536,9 @@ if (WANT_GENBIN2RES)
 		GET_TARGET_PROPERTY(BIN2RES bin2res LOCATION)
 	ENDIF(WIN32 OR WIN64)
 ELSE(WANT_GENBIN2RES)
-	SET(BIN2RES "${CMAKE_BINARY_DIR}/bin2res")
+	SET(BIN2RES "${CMAKE_BINARY_DIR}/prebuilt/bin2res")
 ENDIF(WANT_GENBIN2RES)
+MESSAGE("To generate embedded resources using bin2res: ${BIN2RES}")
 
 # we somehow have to make LMMS-binary depend on MOC-files
 ADD_FILE_DEPENDENCIES("${CMAKE_BINARY_DIR}/lmmsconfig.h")
