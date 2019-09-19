@@ -52,8 +52,23 @@ GuiApplication* GuiApplication::instance()
 }
 
 
-GuiApplication::GuiApplication()
+GuiApplication::GuiApplication(bool dummy /*= false*/)
 {
+	if (dummy)
+	{
+		m_mainWindow = nullptr;
+		m_fxMixerView = nullptr;
+		m_songEditor = nullptr;
+		m_automationEditor = nullptr;
+		m_bbEditor = nullptr;
+		m_pianoRoll = nullptr;
+		m_projectNotes = nullptr;
+		m_controllerRackView = nullptr;
+		m_loadingProgressLabel = nullptr;
+		s_instance = this;
+		return;
+	}
+
 	// prompt the user to create the LMMS working directory (e.g. ~/Documents/lmms) if it doesn't exist
 	if ( !ConfigManager::inst()->hasWorkingDir() &&
 		QMessageBox::question( NULL,

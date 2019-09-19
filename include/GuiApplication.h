@@ -44,7 +44,7 @@ class EXPORT GuiApplication : public QObject
 {
 	Q_OBJECT;
 public:
-	explicit GuiApplication();
+	explicit GuiApplication(bool dummy = false);
 	~GuiApplication();
 
 	static GuiApplication* instance();
