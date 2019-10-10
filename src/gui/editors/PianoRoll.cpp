@@ -4434,6 +4434,13 @@ void PianoRollWindow::recordAccompany()
 
 
 
+void PianoRollWindow::startRecording()
+{
+	m_editor->startRecording();
+}
+
+
+
 void PianoRollWindow::stopRecording()
 {
 	m_editor->stopRecording();

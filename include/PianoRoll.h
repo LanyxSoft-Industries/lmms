@@ -87,6 +87,14 @@ public:
 
 	void setCurrentPattern( Pattern* newPattern );
 
+	void startRecording()
+	{
+		if (hasValidPattern())
+		{
+			m_recording = true;
+		}
+	}
+
 	inline void stopRecording()
 	{
 		m_recording = false;
@@ -416,6 +424,7 @@ public:
 	void stop();
 	void record();
 	void recordAccompany();
+	void startRecording();
 	void stopRecording();
 
 	bool isRecording() const;
