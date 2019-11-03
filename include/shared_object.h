@@ -65,6 +65,19 @@ public:
 		}
 	}
 
+	template<class T>
+	static void unref_qobj( T* object )
+	{
+		object->m_lock.lock();
+		bool deleteObject = --object->m_referenceCount <= 0;
+		object->m_lock.unlock();
+
+		if ( deleteObject )
+		{
+			object->deleteLater();
+		}
+	}
+
 	// keep clang happy which complaines about unused member variable
 	void dummy()
 	{

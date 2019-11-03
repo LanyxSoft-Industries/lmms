@@ -86,7 +86,7 @@ Note::~Note()
 {
 	if( m_detuning )
 	{
-		sharedObject::unref( m_detuning );
+		sharedObject::unref_qobj( m_detuning );
 	}
 }
 
