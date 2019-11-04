@@ -152,6 +152,8 @@ private:
 
 signals:
 	void destroyedPattern( Pattern* );
+	void noteAdded( Note* );
+	void noteRemoved( Note* );
 
 } ;
 

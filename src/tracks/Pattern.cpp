@@ -219,6 +219,7 @@ Note * Pattern::addNote( const Note & _new_note, const bool _quant_pos )
 	checkType();
 	updateLength();
 
+	emit noteAdded(new_note);
 	emit dataChanged();
 
 	return new_note;
@@ -229,13 +230,15 @@ Note * Pattern::addNote( const Note & _new_note, const bool _quant_pos )
 
 void Pattern::removeNote( Note * _note_to_del )
 {
+	Note* found_note = nullptr;
+
 	instrumentTrack()->lock();
 	NoteVector::Iterator it = m_notes.begin();
 	while( it != m_notes.end() )
 	{
 		if( *it == _note_to_del )
 		{
-			delete *it;
+			found_note = *it;
 			m_notes.erase( it );
 			break;
 		}
@@ -245,6 +248,12 @@ void Pattern::removeNote( Note * _note_to_del )
 
 	checkType();
 	updateLength();
+
+	if ( found_note )
+	{
+		emit noteRemoved(found_note);
+		delete found_note;
+	}
 
 	emit dataChanged();
 }
