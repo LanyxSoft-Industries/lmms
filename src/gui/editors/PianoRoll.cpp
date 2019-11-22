@@ -3973,6 +3973,17 @@ int PianoRoll::quantization() const
 }
 
 
+void PianoRoll::setQuantization(int _quantizedDivisions)
+{
+	QString quantizationString = "1/" + QString::number( _quantizedDivisions );
+	int index = m_quantizeModel.findText(quantizationString);
+	if (index != -1)
+	{
+		m_quantizeModel.setValue(index);
+	}
+}
+
+
 void PianoRoll::quantizeNotes()
 {
 	if( ! hasValidPattern() )
@@ -4397,6 +4408,14 @@ bool PianoRollWindow::isRecording() const
 int PianoRollWindow::quantization() const
 {
 	return m_editor->quantization();
+}
+
+
+
+
+void PianoRollWindow::setQuantization( int quantizedDivs )
+{
+	return m_editor->setQuantization( quantizedDivs );
 }
 
 

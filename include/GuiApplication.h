@@ -49,6 +49,8 @@ public:
 
 	static GuiApplication* instance();
 
+	PianoRollWindow* createPianoRoll();
+
 	MainWindow* mainWindow() { return m_mainWindow; }
 	FxMixerView* fxMixerView() { return m_fxMixerView; }
 	SongEditorWindow* songEditor() { return m_songEditor; }

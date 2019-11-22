@@ -118,6 +118,7 @@ public:
 	Song::PlayModes desiredPlayModeForAccompany() const;
 
 	int quantization() const;
+	void setQuantization(int quantizedDivisions);
 
 	// qproperty access functions
 	QColor barLineColor() const;
@@ -416,9 +417,10 @@ public:
 	PianoRollWindow();
 
 	const Pattern* currentPattern() const;
-	void setCurrentPattern(Pattern* pattern);
+	void setCurrentPattern( Pattern* pattern );
 
 	int quantization() const;
+	void setQuantization( int quantizedDivisions );
 
 	void play();
 	void stop();

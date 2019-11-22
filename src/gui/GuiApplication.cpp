@@ -174,6 +174,14 @@ GuiApplication::~GuiApplication()
 }
 
 
+PianoRollWindow* GuiApplication::createPianoRoll()
+{
+	m_pianoRoll = new PianoRollWindow();
+	connect(m_pianoRoll, SIGNAL(destroyed(QObject*)), this, SLOT(childDestroyed(QObject*)));
+	return m_pianoRoll;
+}
+
+
 void GuiApplication::displayInitProgress(const QString &msg)
 {
 	Q_ASSERT(m_loadingProgressLabel != nullptr);
