@@ -232,7 +232,7 @@ void PluginDescWidget::updateHeight()
 
 	if( !m_updateTimer.isActive() )
 	{
-		m_updateTimer.start( 10 );
+		m_updateTimer.start( 4 );
 	}
 }
 
