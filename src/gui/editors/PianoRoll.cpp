@@ -3397,8 +3397,7 @@ QList<int> PianoRoll::getAllOctavesForKey( int keyToMirror ) const
 }
 
 Song::PlayModes PianoRoll::desiredPlayModeForAccompany() const
-{
-	if( m_pattern->getTrack()->trackContainer() ==
+{	if( m_pattern->getTrack()->trackContainer() ==
 					Engine::getBBTrackContainer() )
 	{
 		return Song::Mode_PlayBB;
@@ -3492,15 +3491,24 @@ void PianoRoll::startRecordNote(const Note & n )
 	if( m_recording && hasValidPattern() &&
 			Engine::getSong()->isPlaying() &&
 			(Engine::getSong()->playMode() == desiredPlayModeForAccompany() ||
-			 Engine::getSong()->playMode() == Song::Mode_PlayPattern ))
+			 Engine::getSong()->playMode() == Song::Mode_PlayPattern ||
+			 Engine::getSong()->playMode() == Song::Mode_PlaySong) )
 	{
 		MidiTime sub;
 		if( Engine::getSong()->playMode() == Song::Mode_PlaySong )
 		{
 			sub = m_pattern->startPosition();
 		}
-		Note n1( 1, Engine::getSong()->getPlayPos(
-					Engine::getSong()->playMode() ) - sub,
+
+		MidiTime noteStart = Engine::getSong()->getPlayPos( Engine::getSong()->playMode() ) - sub;
+
+		if( m_pattern->getTrack()->trackContainer() == Engine::getBBTrackContainer() &&
+			Engine::getSong()->playMode() == Song::Mode_PlaySong )
+		{
+			noteStart = MidiTime(noteStart.getTicks() % m_pattern->length().getTicks());
+		}
+
+		Note n1( 1, noteStart,
 				n.key(), n.getVolume(), n.getPanning() );
 		if( n1.pos() >= 0 )
 		{
@@ -3518,6 +3526,8 @@ void PianoRoll::finishRecordNote(const Note & n )
 		Engine::getSong()->isPlaying() &&
 			( Engine::getSong()->playMode() ==
 					desiredPlayModeForAccompany() ||
+				Engine::getSong()->playMode() ==
+					Song::Mode_PlaySong ||
 				Engine::getSong()->playMode() ==
 					Song::Mode_PlayPattern ) )
 	{
