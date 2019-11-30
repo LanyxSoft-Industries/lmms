@@ -1067,7 +1067,7 @@ void Song::loadProject( const QString & fileName )
 	if( !node.isNull() )
 	{
 		Engine::fxMixer()->restoreState( node.toElement() );
-		if( gui )
+		if( gui && gui->mainWindow() )
 		{
 			// refresh FxMixerView
 			gui->fxMixerView()->refreshDisplay();
@@ -1108,7 +1108,7 @@ void Song::loadProject( const QString & fileName )
 			{
 				restoreControllerStates( node.toElement() );
 			}
-			else if( gui )
+			else if( gui && gui->mainWindow() )
 			{
 				if( node.nodeName() == gui->getControllerRackView()->nodeName() )
 				{
@@ -1205,7 +1205,7 @@ bool Song::saveProjectFile( const QString & filename )
 
 	m_globalAutomationTrack->saveState( dataFile, dataFile.content() );
 	Engine::fxMixer()->saveState( dataFile, dataFile.content() );
-	if( gui )
+	if( gui && gui->mainWindow() )
 	{
 		gui->getControllerRackView()->saveState( dataFile, dataFile.content() );
 		gui->pianoRoll()->saveState( dataFile, dataFile.content() );
