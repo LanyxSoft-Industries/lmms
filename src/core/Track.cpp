@@ -203,7 +203,10 @@ void TrackContentObject::paste()
 		movePosition( pos );
 	}
 	AutomationPattern::resolveAllIDs();
-	GuiApplication::instance()->automationEditor()->m_editor->updateAfterPatternChange();
+	if ( GuiApplication::instance()->automationEditor() )
+	{
+		GuiApplication::instance()->automationEditor()->m_editor->updateAfterPatternChange();
+	}
 }
 
 
