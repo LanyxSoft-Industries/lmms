@@ -3204,8 +3204,10 @@ void PianoRoll::resizeEvent(QResizeEvent * re)
 	}
 	m_topBottomScroll->setValue( m_totalKeysToScroll - m_startKey );
 
-	Engine::getSong()->getPlayPos( Song::Mode_PlayPattern
-					).m_timeLine->setFixedWidth( width() );
+	if( m_timeLine )
+	{
+		m_timeLine->setFixedWidth( width() );
+	}
 
 	update();
 }
