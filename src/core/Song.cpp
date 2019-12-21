@@ -1169,7 +1169,7 @@ void Song::loadProject( const QString & fileName )
 
 	if ( hasErrors())
 	{
-		if ( gui )
+		if ( gui && gui->mainWindow() )
 		{
 			QMessageBox::warning( NULL, tr("LMMS Error report"), errorSummary(),
 							QMessageBox::Ok );
@@ -1226,7 +1226,7 @@ bool Song::guiSaveProject()
 {
 	DataFile dataFile( DataFile::SongProject );
 	m_fileName = dataFile.nameWithExtension( m_fileName );
-	if( saveProjectFile( m_fileName ) && gui != nullptr )
+	if( saveProjectFile( m_fileName ) && gui != nullptr && gui->mainWindow() != nullptr )
 	{
 		TextFloat::displayMessage( tr( "Project saved" ),
 					tr( "The project %1 is now saved."
@@ -1237,7 +1237,7 @@ bool Song::guiSaveProject()
 		m_modified = false;
 		gui->mainWindow()->resetWindowTitle();
 	}
-	else if( gui != nullptr )
+	else if( gui != nullptr && gui->mainWindow() != nullptr )
 	{
 		TextFloat::displayMessage( tr( "Project NOT saved." ),
 				tr( "The project %1 was not saved!" ).arg(
